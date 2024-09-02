@@ -1,0 +1,12 @@
+numpy
+pandas
+matplotlib
+ultralytics
+opencv-python
+labelme
+pycocotools
+hub_sdk
+lapx
+scipy
+torch
+torchvision
