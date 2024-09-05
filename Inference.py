@@ -83,5 +83,5 @@ if __name__ == '__main__':
     inference(pose_model='./pretrained_models/yolov8s-pose.pt',
               save_path='./checkpoint/',
               video_path='./videos/squat.avi',
-              best_model='./checkpoint/best_model2.pt')
+              best_model='./checkpoint/1.pt')
 

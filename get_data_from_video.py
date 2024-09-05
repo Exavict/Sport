@@ -6,9 +6,9 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', default='./yolov8s-pose.pt', type=str, help='Path to model weight')
-    parser.add_argument('--input_video', default='./videos/Pushup_long.mp4', type=str, help='Path to input video')
-    parser.add_argument('--data_save_path', default='for_detect2/data/squat/002.csv', type=str, help='Path to save data')
+    parser.add_argument('--model', default='pretrained_models/yolov8s-pose.pt', type=str, help='Path to model weight')
+    parser.add_argument('--input_video', default='videos/Pushup_long.mp4', type=str, help='Path to input video')
+    parser.add_argument('--data_save_path', default='for_detect/data/squat/002.csv', type=str, help='Path to save data')
     parser.add_argument('--data_len', default=5, type=int, help='Sequence length')
     args = parser.parse_args()
     return args
@@ -52,8 +52,8 @@ def collect_data(model_path, video_path, save_path, data_len=5):
 if __name__ == '__main__':
     # only for one person
     yolov8_model = './yolov8s-pose.pt'  # 或者加载自己训练的模型文件
-    input_video = '.videos/Pushup_long.mp4'  # 视频文件
-    data_save_path = './data/pushup/002.csv'  # 生成csv文件
+    input_video = './videos/squat_4.mp4'  # 视频文件
+    data_save_path = './data/squat/003.csv'  # 生成csv文件
     collect_data(model_path=yolov8_model,
                  video_path=input_video,
                  save_path=data_save_path)
