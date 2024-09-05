@@ -108,13 +108,13 @@ def train(save_path, csv_path, pt_file='best_model.pt', batch_size=4, epoch=150,
             best_model_loss = total_loss
             # save_path = os.path.join(save_path, pt_file)
             # print(save_path)
-            torch.save(model.state_dict(), './checkpoint/best5.pt')
+            torch.save(model.state_dict(), './checkpoint/1.pt')
 
 
 if __name__ == '__main__':
     train(save_path='./checkpoint',  # 保存pt文件的路径
           csv_path='./data',  # csv文件所在路径
-          # pt_file='best_model3.pt',  # 保存pt文件名; 在<save_path>路径下
+          pt_file='best001.pt',  # 保存pt文件名; 在<save_path>路径下
           batch_size=4,
           epoch=10)
 

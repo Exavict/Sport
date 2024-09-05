@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-time Video Stream with Flask</title>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <style>
+        #videoElement {
+            width: 480px;
+            height: 360px;
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<video autoplay="true" id="videoElement"></video>
+
+<script>
+    // 获取视频元素并设置 Socket.IO 客户端连接
+    var video = document.querySelector("#videoElement");
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    // 使用 navigator.mediaDevices.getUserMedia 获取用户摄像头视频流
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+                console.log("Something went wrong!");
+            });
+    }
+
+    // 当视频开始播放时，捕获并发送帧
+    video.addEventListener('play', () => {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        const emitFrame = () => {
+            if (video.paused || video.ended) {
+                return;
+            }
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const data = canvas.toDataURL('image/jpeg');
+            socket.emit('video_frame', data);
+            requestAnimationFrame(emitFrame);
+        };
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        emitFrame();
+    });
+
+    // 监听从后端返回的处理后的视频帧
+    socket.on('response_back', function(data) {
+        var image = new Image();
+        image.src = data.data;
+        var ctx = canvas.getContext('2d');
+        image.onload = function() {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        };
+    });
+</script>
+
+</body>
+</html>
