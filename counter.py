@@ -53,6 +53,7 @@ sport_list = {
 
 #角度计算
 def calculate_angle(key_points, left_points_idx, right_points_idx):
+    #key_points：result.key_points
     def _calculate_angle(line1, line2):
         # Calculate the slope of two straight lines
         slope1 = math.atan2(line1[3] - line1[1], line1[2] - line1[0])
@@ -345,7 +346,6 @@ def exercise_counter(pose_model, detector_model_path, detector_model_file, video
                 # 根据输出确定类型
                 exersice_type = idx_2_category[str(idx)]
                 del pose_key_point_frames[0]
-
 
 
             # Get hyperparameters 获取超参数
