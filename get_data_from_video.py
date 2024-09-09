@@ -51,7 +51,7 @@ def collect_data(model_path, video_path, save_path, data_len=5):
 
 if __name__ == '__main__':
     # only for one person
-    yolov8_model = './yolov8s-pose.pt'  # 或者加载自己训练的模型文件
+    yolov8_model = './pretrained_models/yolov8s-pose.pt'  # 或者加载自己训练的模型文件
     input_video = './videos/squat_4.mp4'  # 视频文件
     data_save_path = './data/squat/003.csv'  # 生成csv文件
     collect_data(model_path=yolov8_model,
